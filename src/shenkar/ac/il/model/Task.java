@@ -17,9 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-/** 
- * Task model bean class.
- * implement {@link java.io.Serializable}
+/**
+ * Task model bean class. implement {@link java.io.Serializable}
  */
 @XmlRootElement
 @Entity
@@ -32,7 +31,8 @@ public class Task implements Serializable {
 	@Column(nullable = false)
 	private String userId;
 	private String description;
-	private Integer pendingIntentId;
+	private String location;
+	private Long   date;
 
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false, insertable = false, updatable = false, referencedColumnName = "userId")
@@ -47,13 +47,15 @@ public class Task implements Serializable {
 		this.taskId = taskId;
 	}
 
+	
 	public Task(Long taskId, String userId, String description,
-			Integer pendingIntentId) {
+			String location, Long date) {
 		super();
 		this.taskId = taskId;
 		this.userId = userId;
 		this.description = description;
-		this.pendingIntentId = pendingIntentId;
+		this.location = location;
+		this.date = date;
 	}
 
 	public void setTaskId(Long taskId) {
@@ -80,14 +82,6 @@ public class Task implements Serializable {
 		this.description = description;
 	}
 
-	public Integer getPendingIntentId() {
-		return pendingIntentId;
-	}
-
-	public void setPendingIntentId(Integer pendingIntentId) {
-		this.pendingIntentId = pendingIntentId;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -96,11 +90,27 @@ public class Task implements Serializable {
 		this.user = user;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Long getDate() {
+		return date;
+	}
+
+	public void setDate(Long date) {
+		this.date = date;
+	}	
+
 	@Override
 	public String toString() {
 		return "Task [taskId=" + taskId + ", userId=" + userId
-				+ ", description=" + description + ", pendingIntentId="
-				+ pendingIntentId + "]";
+				+ ", description=" + description + ", location=" + location
+				+ ", date=" + date + "]";
 	}
 
 	public JSONObject toJSON() {
@@ -109,15 +119,13 @@ public class Task implements Serializable {
 			jsonObject.put("taskId", taskId);
 			jsonObject.put("userId", userId);
 			jsonObject.put("description", description);
-			jsonObject.put("pendingIntentId", pendingIntentId);
-			// jsonObject.put("user", user.toJSON().toString());
+			jsonObject.put("location", location);
+			jsonObject.put("date", date);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return jsonObject;
 	}
 
-	public static void main(String[] args) {
-
-	}
+	
 }

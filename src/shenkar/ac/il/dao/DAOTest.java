@@ -110,7 +110,7 @@ public class DAOTest {
 			CommunicationsException, SQLException, NullPointerException,
 			GeneralSecurityException {
 		Task task = new Task(11111L, "test3",
-				"test2 message description", -1);
+				"test2 message description","location",-1L);
 		DAO dao = DAO.getInstance();
 		long userAgent = dao.addUserTask("test3", md5("1234567"), task);
 		assertTrue("Task as been added!",
@@ -145,7 +145,7 @@ public class DAOTest {
 		DAO dao = DAO.getInstance();
 		User user_2 = new User("test2", "test2", "test2", "123456", "test2@");
 		User user_3 = new User("test3", "test3", "test3", "1234567", "test3@");
-		Task task_user_3 = new Task(22222L, "test3", "remove task test.", -2323);
+		Task task_user_3 = new Task(22222L, "test3", "remove task test.","location",-1L);
 		dao.addUser(user_2);
 		dao.addUser(user_3);
 		dao.addUserTask("test3", md5("1234567"), task_user_3);
