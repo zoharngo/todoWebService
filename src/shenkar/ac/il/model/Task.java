@@ -22,7 +22,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 @XmlRootElement
 @Entity
-@Table(name = "Tasks", schema = "todo_db")
+@Table(name = "Tasks", schema = "tododb")
 public class Task implements Serializable {
 
 	private static final long serialVersionUID = 1L;

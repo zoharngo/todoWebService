@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+filesCopiedToWebInfLib=
+googleCloudSqlEnabled=false
+localDevMySqlEnabled=true
+mySqlDatabaseName=tododb
+mySqlDatabasePassword=
+mySqlDatabaseUser=root
+mySqlHostName=localhost
+mySqlIsConfigured=true
+mySqlJdbcJar=C\:\\Users\\Zohar\\git\\todoWebService\\WebContent\\WEB-INF\\lib\\mysql-connector-java-5.1.22-bin.jar
+mySqlPort=3306
