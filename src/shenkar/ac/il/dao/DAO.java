@@ -33,7 +33,8 @@ public class DAO implements IUserTodoList {
 	private static final Logger logger = Logger.getLogger(DAO.class);
 
 	/**
-	 * Default constructor. 
+	 * Default constructor.
+	 * 
 	 * @throws HibernateException
 	 * @throws CommunicationsException
 	 * @throws SQLException
