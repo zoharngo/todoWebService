@@ -1,4 +1,2 @@
-/hibernate.cfg.xml
-/log4j.dtd
-/log4j.xml
 /shenkar
+/c3p0.properties

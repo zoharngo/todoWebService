@@ -20,7 +20,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 @XmlRootElement
 @Entity
-@Table(name = "Users", schema = "tododb")
+@Table(name = "users", schema = "as_23a57d2f8be57b3")
 /** 
  * User model bean class.
  * implement {@link java.io.Serializable}

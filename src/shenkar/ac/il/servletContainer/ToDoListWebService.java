@@ -65,7 +65,18 @@ public class ToDoListWebService implements IToDoListWebService {
 					"[ToDoListWebService]: SQLException trown while trying get DAO instance!.",
 					e);
 			System.exit(1);
+		}catch(RuntimeException e){
+			logger.fatal(
+					"[ToDoListWebService]: RuntimeException trown while trying get DAO instance!.",
+					e);
+			System.exit(1);
+		}catch(Exception e){
+			logger.fatal(
+					"[ToDoListWebService]: fatal Exception trown while trying get DAO instance!.",
+					e);
+			System.exit(1);
 		}
+		
 	}
 
 	/**

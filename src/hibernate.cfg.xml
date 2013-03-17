@@ -23,15 +23,21 @@
 
 		<!-- Database connection settings -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tododb</property>
+
+		<property name="hibernate.connection.url">jdbc:mysql://eu-cdbr-azure-west-b.cloudapp.net/as_23a57d2f8be57b3?autoReconnect=true</property>
 		<property name="hibernate.connection.CharSet">utf8</property>
 		<property name="hibernate.connection.characterEncoding">utf8</property>
 		<property name="hibernate.connection.useUnicode">true</property>
-		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password"></property>
+		<property name="hibernate.connection.username">b3637d9d734eb2</property>
+		<property name="hibernate.connection.password">fed34886</property>
 
-		<!-- JDBC connection pool (use the built-in) -->
-		<property name="connection.pool_size">1</property>
+
+		<property name="c3p0.min_size">5</property>
+		<property name="c3p0.max_size">20</property>
+		<property name="c3p0.timeout">1800</property>
+		<property name="c3p0.max_statements">50</property>
+		<property name="connection.provider_class">
+			org.hibernate.connection.C3P0ConnectionProvider</property>
 
 		<!-- SQL dialect -->
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>

@@ -39,8 +39,7 @@ public class DAO implements IUserTodoList {
 	 * @throws CommunicationsException
 	 * @throws SQLException
 	 */
-	private DAO() throws HibernateException, CommunicationsException,
-			SQLException {
+	private DAO() throws Exception{
 		super();
 		Configuration configuration = new Configuration();
 		configuration.configure("hibernate.cfg.xml");
@@ -63,8 +62,7 @@ public class DAO implements IUserTodoList {
 	 * @throws CommunicationsException
 	 * @throws SQLException
 	 */
-	public static DAO getInstance() throws HibernateException,
-			CommunicationsException, SQLException {
+	public static DAO getInstance() throws Exception {
 		if (dao == null) {
 			dao = new DAO();
 		}
