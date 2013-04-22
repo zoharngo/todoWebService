@@ -101,25 +101,28 @@ public class ToDoListWebService implements IToDoListWebService {
 					+ userInfo.getValue().toJSON().toString());
 
 			User user = dao.getUser(userId, userpass, false);
+
 			JSONArray jsonTasks = new JSONArray();
 
-			if (user != null && user.getUserAgent() != userAgent) {
-				jsonTasks = new JSONArray();
-				Collection<Task> userTasks = user.getUserTasks();
-				for (Task task : userTasks) {
-					jsonTasks.put(task.toJSON());
+			if (user != null) {
+				if (user.getUserAgent() != userAgent) {
+
+					jsonTasks = new JSONArray();
+					Collection<Task> userTasks = user.getUserTasks();
+
+					for (Task task : userTasks) {
+						jsonTasks.put(task.toJSON());
+					}
+					logger.info("[getUserTasks]: response ,JsonArray of tasks!.");
+					return Response.ok(jsonTasks.toString()).build();
+				} else {
+					logger.warn("[getUserTasks]: response ,'User not found!'.");
+					return Response.ok("User not found!.").build();
 				}
-				logger.info("[getUserTasks]: response ,JsonArray of tasks!.");
-				return Response.ok(jsonTasks.toString()).build();
 			} else {
 				logger.info("[getUserTasks]: response ,'no update necessary!'.");
 				return Response.ok("UpdateNotNecessary").build();
 			}
-
-		} catch (IndexOutOfBoundsException e) {
-
-			logger.warn("[getUserTasks]: response ,'User not found!'.");
-			return Response.ok("User not found!.").build();
 
 		} catch (CommunicationsException e) {
 
@@ -159,14 +162,14 @@ public class ToDoListWebService implements IToDoListWebService {
 			logger.info("[getUserInfo]: requerst arrived!,\n request body is -\n"
 					+ userInfo.getValue().toJSON().toString());
 			User user = dao.getUser(userId, userpass, true);
+			if (user == null) {
+				logger.warn("[getUserInfo]: response ,'User not found!'.");
+				return Response.ok("User not found!.").build();
+			}
 			String resposeMessage = user.toJSON().toString();
 
 			logger.info("[getUserInfo]: response, json user record.");
 			return Response.ok(resposeMessage).build();
-		} catch (IndexOutOfBoundsException e) {
-
-			logger.warn("[getUserInfo]: response ,'User not found!'.");
-			return Response.ok("User not found!.").build();
 
 		} catch (CommunicationsException e) {
 
@@ -250,14 +253,14 @@ public class ToDoListWebService implements IToDoListWebService {
 			User userInfo = newTask.getUser();
 			Long userAgent = dao.addUserTask(userInfo.getUserId(),
 					userInfo.getUserPass(), newTask);
+			if (userAgent == -1) {
+				logger.warn("[putTask]: response ,'User not found!'.");
+				return Response.ok("User not found!.").build();
+
+			}
 			String resposeMessage = userAgent.toString();
 			logger.info("[putTask]: response, user agent text\\plain.");
 			return Response.ok(resposeMessage).build();
-
-		} catch (NullPointerException e) {
-
-			logger.warn("[putTask]: response ,'User not found!'.");
-			return Response.ok("User not found!.").build();
 
 		} catch (CommunicationsException e) {
 
@@ -300,15 +303,13 @@ public class ToDoListWebService implements IToDoListWebService {
 			String userId = (String) userInf.get("userId");
 			String userPass = (String) userInf.get("userPass");
 			Long userAgent = dao.removeUserTask(userId, userPass, ids);
-
+			if (userAgent == -1) {
+				logger.warn("[deleteTasks]: response ,'User not found!'.");
+				return Response.ok("User not found!.").build();
+			}
 			String responseString = userAgent.toString();
 			logger.info("[deleteTasks]: response, user agent text\\plain.");
 			return Response.ok(responseString).build();
-		} catch (NullPointerException e) {
-
-			logger.warn("[deleteTasks]: response ,'User not found!'.");
-			return Response.ok("User not found!.").build();
-
 		} catch (CommunicationsException e) {
 
 			logger.error("[deleteTasks]: response ,'CommunicationsException!'.");

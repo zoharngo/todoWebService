@@ -39,7 +39,7 @@ public class DAO implements IUserTodoList {
 	 * @throws CommunicationsException
 	 * @throws SQLException
 	 */
-	private DAO() throws Exception{
+	private DAO() throws Exception {
 		super();
 		Configuration configuration = new Configuration();
 		configuration.configure("hibernate.cfg.xml");
@@ -138,7 +138,7 @@ public class DAO implements IUserTodoList {
 	 * @throws SQLException
 	 */
 	@Override
-	public Boolean removeUser(String userId, String userPass)
+	public boolean removeUser(String userId, String userPass)
 			throws HibernateException, CommunicationsException, SQLException {
 		Session session = sessionFactory.openSession();
 		logger.trace("[removeUser]: session opened!.");
@@ -198,18 +198,17 @@ public class DAO implements IUserTodoList {
 	 *            - the user password.
 	 * @param md5
 	 *            - this indicate if pass is encrypted or not.
-	 * @return The user requested.
+	 * @return The user requested or null if the user not found!.
 	 * @throws HibernateException
 	 * @throws CommunicationsException
 	 * @throws SQLException
 	 * @throws GeneralSecurityException
-	 * @throws IndexOutOfBoundsException
-	 *             if the user not found!.
+	 * 
 	 */
 	@Override
 	public User getUser(String userId, String userPass, boolean md5)
 			throws HibernateException, CommunicationsException, SQLException,
-			IndexOutOfBoundsException, GeneralSecurityException {
+			GeneralSecurityException {
 		Session session = sessionFactory.openSession();
 		logger.trace("[getUser]: session opened!.");
 		User user = null;
@@ -232,7 +231,7 @@ public class DAO implements IUserTodoList {
 			logger.warn(
 					"[getUser]: 'IndexOutOfBoundsException' has been thrown (user not found in table users !).",
 					e);
-			throw e;
+			return null;
 		} catch (GeneralSecurityException e) {
 			logger.fatal(
 					"[getUser]: 'GeneralSecurityException' has been thrown while trying to get userInfo !.",
@@ -267,17 +266,14 @@ public class DAO implements IUserTodoList {
 	 *            - the user password.
 	 * @param task
 	 *            - user new task.
-	 * @return the userAgent.
+	 * @return the userAgent or -1 if the user not found!.
 	 * @throws HibernateException
 	 * @throws CommunicationsException
 	 * @throws SQLException
-	 * @throws NullPointerException
-	 *             if the user not found!.
 	 */
 	@Override
 	public long addUserTask(String userId, String userPass, Task task)
-			throws HibernateException, CommunicationsException, SQLException,
-			NullPointerException {
+			throws HibernateException, CommunicationsException, SQLException {
 		Session session = sessionFactory.openSession();
 		logger.trace("[addUserTask]: session opened!.");
 		Transaction transaction = session.beginTransaction();
@@ -310,7 +306,7 @@ public class DAO implements IUserTodoList {
 			logger.warn(
 					"[addUserTask]: 'NullPointerException' has been thrown (user not found in table users !).",
 					e);
-			throw e;
+			return -1;
 		}
 
 		finally {
@@ -340,17 +336,14 @@ public class DAO implements IUserTodoList {
 	 *            - the user password.
 	 * @param taskIds
 	 *            - array of tasks id's .
-	 * @return the userAgent.
+	 * @return the userAgent -1 if the user not found!.
 	 * @throws HibernateException
 	 * @throws CommunicationsException
 	 * @throws SQLException
-	 * @throws NullPointerException
-	 *             if the user not found!.
 	 */
 	@Override
 	public long removeUserTask(String userId, String userPass, long taskIds[])
-			throws HibernateException, CommunicationsException, SQLException,
-			NullPointerException {
+			throws HibernateException, CommunicationsException, SQLException {
 		Session session = sessionFactory.openSession();
 		logger.trace("[removeUserTask]: session opened!.");
 		Transaction transaction = session.beginTransaction();
@@ -383,7 +376,7 @@ public class DAO implements IUserTodoList {
 			logger.warn(
 					"[removeUserTask]: 'NullPointerException' has been thrown (user not found in table users !).",
 					e);
-			throw e;
+			return -1;
 		} finally {
 			if (session != null) {
 				try {
@@ -411,17 +404,14 @@ public class DAO implements IUserTodoList {
 	 *            - the user password.
 	 * @param task
 	 *            - the updated user task.
-	 * @return the userAgent.
+	 * @return the userAgent or null if the user not found!. .
 	 * @throws HibernateException
 	 * @throws CommunicationsException
 	 * @throws SQLException
-	 * @throws NullPointerException
-	 *             if the user not found!.
 	 */
 	@Override
-	public Boolean updateUserTask(String userId, String userPass, Task task)
-			throws HibernateException, CommunicationsException, SQLException,
-			NullPointerException {
+	public boolean updateUserTask(String userId, String userPass, Task task)
+			throws HibernateException, CommunicationsException, SQLException {
 
 		Session session = sessionFactory.openSession();
 		logger.trace("[updateUserTask]: session opened!.");
@@ -450,7 +440,7 @@ public class DAO implements IUserTodoList {
 			logger.warn(
 					"[updateUserTask]: 'NullPointerException' has been thrown (user not found in table users !).",
 					e);
-			throw e;
+			return false;
 		} finally {
 			if (session != null) {
 				try {

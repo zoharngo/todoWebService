@@ -57,7 +57,7 @@ public interface IUserTodoList {
 	 * @return true if the user removed data base ,else false.
 	 * @throws SQLException
 	 */
-	public Boolean removeUser(String userId, String userPass)
+	public boolean removeUser(String userId, String userPass)
 			throws SQLException;
 
 	/**
@@ -113,7 +113,7 @@ public interface IUserTodoList {
 	 * @return the userAgent.
 	 * @throws SQLException
 	 */
-	public Boolean updateUserTask(String userId, String userPass, Task task)
+	public boolean updateUserTask(String userId, String userPass, Task task)
 			throws SQLException;
 
 }
